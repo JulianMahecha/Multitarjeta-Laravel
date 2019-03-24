@@ -11,6 +11,7 @@
         Atque sint culpa suscipit assumenda vitae corrupti consequatur autem. Tempora, dolore facere cumque reprehenderit deleniti, debitis velit quidem, numquam rem ut natus nostrum quis quaerat animi ratione placeat qui mollitia!
         Ex enim ratione laudantium quis, qui repudiandae optio ipsam obcaecati cum debitis dolore tempora sapiente possimus placeat, pariatur eveniet error. Numquam asperiores aut voluptate eum sequi vitae quis beatae atque.
         Eaque doloremque fugit provident vel eum culpa sed, assumenda, cumque quasi animi a exercitationem voluptates iste velit quae in, neque ad illo doloribus. Optio totam, dignissimos repudiandae obcaecati beatae eum?.</p>
-        </div>
+        <a href="/trainers/{{$trainer->slug}}/edit" class="btn btn-primary">Editar</a>
+        </div> 
     </div>
 @endsection 
