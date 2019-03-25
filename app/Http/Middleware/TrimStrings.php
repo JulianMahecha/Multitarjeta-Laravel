@@ -1,6 +1,6 @@
 <?php
 
-namespace Multitarjeta\Http\Middleware;
+namespace LaraDex\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\TrimStrings as Middleware;
 

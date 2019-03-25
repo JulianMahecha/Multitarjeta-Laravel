@@ -1,8 +1,8 @@
 <?php
 
-namespace Multitarjeta\Http\Controllers\Auth;
+namespace LaraDex\Http\Controllers\Auth;
 
-use Multitarjeta\Http\Controllers\Controller;
+use LaraDex\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller

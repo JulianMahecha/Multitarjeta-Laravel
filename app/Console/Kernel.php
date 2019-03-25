@@ -1,6 +1,6 @@
 <?php
 
-namespace Multitarjeta\Console;
+namespace LaraDex\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;

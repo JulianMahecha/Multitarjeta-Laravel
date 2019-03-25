@@ -1,6 +1,6 @@
 <?php
 
-namespace Multitarjeta\Providers;
+namespace LaraDex\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'Multitarjeta\Model' => 'Multitarjeta\Policies\ModelPolicy',
+        'LaraDex\Model' => 'LaraDex\Policies\ModelPolicy',
     ];
 
     /**

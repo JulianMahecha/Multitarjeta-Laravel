@@ -1,6 +1,6 @@
 <?php
 
-namespace Multitarjeta\Http\Middleware;
+namespace LaraDex\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

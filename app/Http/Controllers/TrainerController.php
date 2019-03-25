@@ -1,9 +1,11 @@
 <?php
 
-namespace Multitarjeta\Http\Controllers;
+namespace LaraDex\Http\Controllers;
 
+use LaraDex\Trainer;
 use Illuminate\Http\Request;
-use Multitarjeta\Trainer;
+use Illuminate\Support\Facades\Storage;
+use LaraDex\Http\Requests\StoreTrainerRequest;
 
 class TrainerController extends Controller
 {
@@ -12,10 +14,13 @@ class TrainerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['admin','user']);
+
         $trainers = Trainer::all();
-        return view("trainers.index", compact('trainers'));
+
+        return view('trainers.index', compact('trainers'));
     }
 
     /**
@@ -34,21 +39,22 @@ class TrainerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        if ($request->hasFile('avatar')) {
-            $file= $request->file('avatar');
-            $avname = time().$file->getClientOriginalName();
-            $file->move(public_path().'/images/', $avname);
-        }
-
+    public function store(StoreTrainerRequest $request)
+    {   
         $trainer = new Trainer();
-        $trainer->name = $request->input('name');
-        $trainer->avatar = $avname;
-        $trainer->save();
 
-        return 'saved';
-        //return $request->all();
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+            $name = time().$file->getClientOriginalName();
+            $trainer->avatar = $name;
+            $file->move(public_path().'/images/', $name);
+        }
+        $trainer->name = $request->input('name');
+        $trainer->slug = $request->input('slug');
+        $trainer->save();
+        
+        return redirect()->route('trainers.index');
+        // return 'Saved';
     }
 
     /**
@@ -59,10 +65,9 @@ class TrainerController extends Controller
      */
     public function show(Trainer $trainer)
     {   
-        /* $trainer = Trainer::find($id); comentado, para utilizar implicit binding*/
-        /* $trainer = Trainer::where('slug','=', $slug)->firstOrFail(); comentado para usar custom implicit binding*/
         return view('trainers.show', compact('trainer'));
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -84,17 +89,16 @@ class TrainerController extends Controller
     public function update(Request $request, Trainer $trainer)
     {
         $trainer->fill($request->except('avatar'));
-
-        if ($request->hasFile('avatar')) {
-            $file= $request->file('avatar');
-            $avname = time().$file->getClientOriginalName();
-            $trainer->avatar = $avname;
-            $file->move(public_path().'/images/', $avname);
+         if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+            $name = time().$file->getClientOriginalName();
+            $trainer->avatar = $name;
+            $file->move(public_path().'/images/', $name);
         }
-
         $trainer->save();
-
-        return redirect()->action('TrainerController@index');
+        
+        return redirect()->route('trainers.show', [$trainer])->with('status','Entrenador actualizado correctament');
+        // return 'updated';
     }
 
     /**
@@ -103,8 +107,12 @@ class TrainerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Trainer $trainer)
     {
-        //
+        $file_path = public_path().'/images/'.$trainer->avatar;
+        \File::delete($file_path);
+        
+        $trainer->delete();
+        return redirect()->route('trainers.index');
     }
 }

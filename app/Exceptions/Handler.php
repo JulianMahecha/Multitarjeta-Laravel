@@ -1,6 +1,6 @@
 <?php
 
-namespace Multitarjeta\Exceptions;
+namespace LaraDex\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;

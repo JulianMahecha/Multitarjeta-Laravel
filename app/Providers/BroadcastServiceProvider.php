@@ -1,6 +1,6 @@
 <?php
 
-namespace Multitarjeta\Providers;
+namespace LaraDex\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
